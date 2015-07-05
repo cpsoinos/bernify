@@ -19,4 +19,12 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'spring'
+  gem 'factory_girl'
+  gem 'faker'
+  gem 'capybara'
+  gem 'coveralls', require: false
+  gem 'fuubar'
+  gem 'launchy'
+  gem 'shoulda-matchers', require: false
+  gem 'valid_attribute'
 end
