@@ -1,25 +1,128 @@
-<h1>Bernify</h1>
+<% content_for :main do %>
 
-<h2>Create a Bernie</h2>
+  <div class="row">
+    <div class="col-xs-4">
+      <h1>Bernify</h1>
+    </div>
+  </div>
 
-<p>Step 1: Choose or upload a background</p>
+  <div class="row">
+    <div class="col-xs-4">
+      <h4>Create a Bernie</h2>
+    </div>
+  </div>
 
-<%= render './backgrounds/form' %>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="panel panel-default">
+        <div class="panel-body index">
+          <h5>Step 1: Choose a background</h5>
+          <% @backgrounds.each do |background| %>
+            <%= image_tag background.image.url(:thumb), class: "background clickable", data: background.image.url(:original) %>
+          <% end %>
+          <p>Or, upload your own:</p>
+          <%= render './backgrounds/form' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="panel panel-default">
+        <div class="panel-body index">
+          <h5>Step 2: Choose a sticker</h5>
+          <% @stickers.each do |sticker| %>
+            <%= image_tag sticker.image.url(:thumb), class: "sticker draggable" %>
+          <% end %>
+          <p>Or, upload your own:</p>
+          <%= render './stickers/form' %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<% @backgrounds.each do |background| %>
-  <%= image_tag background.image.url(:thumb) %>
+  <div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+      <div class="panel panel-default">
+        <div class="panel-body drop-target">
+          <h5>Step 3: Create your Bernie!</h5>
+          <div id="droppable"></div>
+        </div>
+        <%= button_to "Save your Bernie", '#', id: "save-bernie" %>
+      </div>
+    </div>
+    <div class="col-xs-2"></div>
+  </div>
+
 <% end %>
 
-<p>Step 2: Choose or upload a sticker</p>
+<% content_for :scripts do %>
+  <script>
 
-<% @stickers.each do |sticker| %>
-  <%= image_tag sticker.image.url(:thumb) %>
+    $(window).ready(function(){
+      $(".draggable").draggable({
+        appendTo: $("#droppable"),
+        cursor: "move",
+        containment: "document",
+        helper: "clone",
+        opactiy: 0.75,
+        scroll: true,
+        stack: ".draggable"
+      });
+      var appendTo = $(".draggable").draggable("option", "appendTo");
+      var cursor = $(".draggable").draggable("option", "cursor");
+      var containment = $(".draggable").draggable("option", "containment");
+      var helper = $(".draggable").draggable("option", "helper");
+      var opacity = $(".draggable").draggable("option", "opacity");
+      var scroll = $(".draggable").draggable("option", "scroll");
+      var stack = $(".draggable").draggable("option", "stack")
+
+      $("#droppable").droppable({
+        accept: ".draggable",
+        drop: function(event, ui){
+          $(this).append($(ui.helper).clone().draggable({
+            containment: "parent"
+          }));
+          $(".ui-draggable-handle").dblclick({uiData: ui}, (function(event){
+            this.remove();
+          }))
+        }
+      })
+
+      $(".clickable").click(function() {
+        var newUrl = this.attributes.data.value;
+        $("#droppable").append("<img src='" + newUrl + "' class='bernie-background'></img>");
+      })
+
+      $("#save-bernie").click(function(event) {
+        event.preventDefault();
+        html2canvas($("#droppable"), {
+          // allowTaint: true,
+          // useCORS: true,
+          onrendered: function(canvas){
+            var img = canvas.toDataURL()
+            debugger;
+            window.open(img);
+            // var canvas = document.getElementById('myCanvasElt');
+            // var ctx = canvas.getContext('2d');
+            // var canvasData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+            // debugger;
+          }
+        })
+      })
+    })
+
+
+    // function convertImageToCanvas(image) {
+    // 	var canvas = document.createElement("canvas");
+    // 	canvas.width = image.width;
+    // 	canvas.height = image.height;
+    // 	canvas.getContext("2d").drawImage(image, 0, 0);
+    //
+    // 	return canvas;
+    // }
+
+
+
+
+  </script>
 <% end %>
-
-<p>or, upload your own!</p>
-
-<%= render './stickers/form' %>
-
-<p>Stickers</p>
-
-<p>Bernies</p>

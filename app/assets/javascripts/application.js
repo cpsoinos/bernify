@@ -12,5 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery-ui/draggable
+//= require jquery-ui/droppable
 //= require bootstrap-sprockets
+//= require html2canvas
+//= require jquery.plugin.html2canvas
 //= require_tree .
