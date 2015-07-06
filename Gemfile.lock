@@ -41,6 +41,16 @@ GEM
     autoprefixer-rails (5.2.0.1)
       execjs
       json
+    aws-sdk (1.61.0)
+      aws-sdk-v1 (= 1.61.0)
+    aws-sdk-v1 (1.61.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.5)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
@@ -72,6 +82,7 @@ GEM
       simplecov (~> 0.10.0)
       term-ansicolor (~> 1.3)
       thor (~> 0.19.1)
+    debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
     domain_name (0.5.24)
@@ -101,21 +112,36 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    kaminari (0.15.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mechanize (2.7.3)
+      domain_name (~> 0.5, >= 0.5.1)
+      http-cookie (~> 1.0)
+      mime-types (~> 2.0)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.5, >= 2.5.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.2)
     mime-types (2.6.1)
     mimemagic (0.3.0)
     mini_portile (0.6.2)
     minitest (5.7.0)
     multi_json (1.11.2)
+    net-http-digest_auth (1.4)
+    net-http-persistent (2.9.4)
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    ntlm-http (0.1.1)
     paperclip (4.3.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -227,6 +253,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.1)
     valid_attribute (2.0.0)
+    webrobots (0.1.1)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -234,6 +261,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk (~> 1.6)
+  better_errors
+  binding_of_caller
   bootstrap-sass
   byebug
   capybara
@@ -245,7 +275,10 @@ DEPENDENCIES
   fuubar
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   launchy
+  mechanize
+  nokogiri
   paperclip (~> 4.3)
   pg
   pry-rails

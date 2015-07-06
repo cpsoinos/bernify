@@ -1,0 +1,25 @@
+<h1>Bernify</h1>
+
+<h2>Create a Bernie</h2>
+
+<p>Step 1: Choose or upload a background</p>
+
+<%= render './backgrounds/form' %>
+
+<% @backgrounds.each do |background| %>
+  <%= image_tag background.image.url(:thumb) %>
+<% end %>
+
+<p>Step 2: Choose or upload a sticker</p>
+
+<% @stickers.each do |sticker| %>
+  <%= image_tag sticker.image.url(:thumb) %>
+<% end %>
+
+<p>or, upload your own!</p>
+
+<%= render './stickers/form' %>
+
+<p>Stickers</p>
+
+<p>Bernies</p>

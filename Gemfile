@@ -11,10 +11,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 gem 'bootstrap-sass'
 gem 'paperclip', '~> 4.3'
+gem 'kaminari'
+gem 'aws-sdk', '~> 1.6'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'pry-rails'
@@ -28,4 +32,6 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers', require: false
   gem 'valid_attribute'
+  gem 'nokogiri'
+  gem 'mechanize'
 end

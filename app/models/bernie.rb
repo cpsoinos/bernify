@@ -1,4 +1,4 @@
 class Bernie < ActiveRecord::Base
-  has_many :backgrounds, presence: true
-  has_many :stickers, presence: true
+  has_many :backgrounds
+  has_many :stickers
 end
