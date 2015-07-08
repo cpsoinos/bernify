@@ -11,6 +11,23 @@
  * file per style scope.
  *
  */
- 
- @import "bootstrap-sprockets";
- @import "bootstrap";
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+/*= require jquery-ui/draggable
+ *= require jquery-ui/resizable
+ *= require jquery-ui/selectable
+ *= require jquery-ui/sortable
+*/
+
+.index {
+  height: 25em;
+}
+
+.drop-target {
+  height: 40em;
+}
+
+.bernie-background {
+  height: 35em;
+}

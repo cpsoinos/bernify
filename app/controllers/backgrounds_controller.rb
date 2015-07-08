@@ -1,5 +1,5 @@
 class BackgroundsController < ApplicationController
-  # 
+  #
   # def index
   #   @backgrounds = Background.page params[:page]
   # end
