@@ -15,7 +15,7 @@ stickers = [
 
 backgrounds.each do |background|
   b = Background.new
-  b.image = img
+  b.image = background
   b.save
 end
 
