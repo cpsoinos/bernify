@@ -15,6 +15,7 @@ gem 'paperclip', '~> 4.3'
 gem 'kaminari'
 gem 'aws-sdk', '~> 1.6'
 gem 'responders'
+gem 'rails_12factor'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
