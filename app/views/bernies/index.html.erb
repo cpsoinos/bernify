@@ -75,52 +75,66 @@
       var opacity = $(".draggable").draggable("option", "opacity");
       var scroll = $(".draggable").draggable("option", "scroll");
       var stack = $(".draggable").draggable("option", "stack")
+    });
 
-      $("#droppable").droppable({
-        accept: ".draggable",
-        drop: function(event, ui){
-          $(this).append($(ui.helper).clone().draggable({
-            containment: "parent"
-          }));
-          $(".ui-draggable-handle").dblclick({uiData: ui}, (function(event){
-            this.remove();
-          }))
-        }
-      })
-
-      $(".clickable").click(function() {
-        var newUrl = this.attributes.data.value;
-        $("#droppable").append("<img src='" + newUrl + "' class='bernie-background'></img>");
-      })
-
-      $("#save-bernie").click(function(event) {
-        event.preventDefault();
-        html2canvas($("#droppable"), {
-          // allowTaint: true,
-          // useCORS: true,
-          onrendered: function(canvas){
-            var img = canvas.toDataURL()
+    $("#droppable").droppable({
+      accept: ".draggable",
+      drop: function(event, ui){
+        var droppedImage = $(".ui-draggable-dragging")[0]
+        var newUrl = ""
+        $.ajax({
+          url: "<%= proxy_image_path %>",
+          type: 'POST',
+          data: {image_url: droppedImage.src},
+          success: function(response){
+            newUrl = response
             debugger;
-            window.open(img);
-            // var canvas = document.getElementById('myCanvasElt');
-            // var ctx = canvas.getContext('2d');
-            // var canvasData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-            // debugger;
+            droppedImage = $(droppedImage).attr("src", newUrl)
+            debugger;
+            $("#droppable").append(droppedImage.clone().draggable({
+              containment: "parent"
+            }));
           }
         })
-      })
+        debugger;
+        $(ui.helper).attr("src", newUrl)
+        debugger;
+        console.log($(ui.helper));
+        $(".ui-draggable-handle").dblclick({uiData: ui}, (function(event){
+          this.remove();
+        }))
+      }
+    });
+
+    $(".clickable").click(function() {
+      var newUrl = this.attributes.data.value;
+      $.ajax({
+        url: "<%= proxy_image_path %>",
+        type: 'POST',
+        data: {image_url: newUrl},
+        success: function(response){
+          $("#droppable").append("<img src='" + response + "' class='bernie-background'></img>");
+        }
+      });
     })
 
-
-    // function convertImageToCanvas(image) {
-    // 	var canvas = document.createElement("canvas");
-    // 	canvas.width = image.width;
-    // 	canvas.height = image.height;
-    // 	canvas.getContext("2d").drawImage(image, 0, 0);
-    //
-    // 	return canvas;
-    // }
-
+    $("#save-bernie").click(function(event) {
+      event.preventDefault();
+      html2canvas($("#droppable"), {
+        logging: true,
+        onrendered: function(canvas){
+          var img = canvas.toDataURL()
+          $.ajax({
+            url: "<%= bernies_path %>",
+            data: {img: img},
+            type: 'POST',
+            success: function(result){
+              window.open(img);
+            }
+          });
+        }
+      })
+    })
 
 
 

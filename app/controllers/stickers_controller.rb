@@ -1,8 +1,4 @@
 class StickersController < ApplicationController
-  # 
-  # def index
-  #   @stickers = Sticker.page params[:page]
-  # end
 
   def create
     @sticker = Sticker.new(sticker_params)
