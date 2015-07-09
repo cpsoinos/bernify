@@ -17,6 +17,7 @@ class BackgroundsController < ApplicationController
   private
 
   def background_params
+    binding.pry
     params.require(:background).permit(:image)
   end
 
